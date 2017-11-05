@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.css">
+    <link rel="stylesheet" href="css/style.css" />
+
+    <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="js/angular.min.js"></script>
+    <script type="text/javascript" src="js/app.js"></script>
+    <script type="text/javascript" src="js/controller.js"></script>
+    <script type="text/javascript" src="js/quagga.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <!--<script type="text/javascript" src="js/script.js"></script>-->
+
+
+</head>
+
+<body ng-app="BarCodeApp" ng-controller="InitCtrl">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="input-group">
+                    <input id="scanner_input" class="form-control" placeholder="Click the button to scan an EAN..." type="text" />
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="button" data-toggle="modal" data-target="#livestream_scanner">
+                            <i class="fa fa-barcode" aria-hidden="true"></i>
+                        </button>
+                    </span>
+                </div><!-- /input-group -->
+            </div><!-- /.col-lg-6 -->
+        </div><!-- /.row -->
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="search-container">
+                    <input id="search_input" class="form-control" placeholder="Search for the EAN..." type="text" />
+                    <span class="input-group-btn">
+                        <button class="btn btn-default search-button" type="button">
+                            <i class="fa fa-search" aria-hidden="true"></i>
+                        </button>
+
+                        <button class="btn btn-default fill-button" type="button" ng-click="fillTable()">
+                            <i class="fa fa-table" aria-hidden="true"></i>
+                        </button>
+
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="table-container">
+                    <table class="table table-striped isbn-table">
+                        <thead>
+                            <tr>
+                                <td>ISBN</td>
+                                <td>BOOK NAME</td>
+                                <td>AUTHOR</td>
+                                <td>Get Details</td>
+                                <td>Store in DB</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="item in dataArray">
+                                <td>{{item.u_isbn}}</td>
+                                <td>{{item.u_book_name}}</td>
+                                <td>{{item.u_author_name}}</td>
+                                <td>
+                                    <button class="btn btn-default get-button" type="button" ng-click="getData(item.u_isbn)">
+                                        <i class="fa fa-book" aria-hidden="true"></i>
+                                    </button>
+                                </td>
+                                <td>
+                                    <button class="btn btn-default get-button" type="button" ng-click="exportData(item)">
+                                        <i class="fa fa-database" aria-hidden="true"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="livestream_scanner">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title">Barcode Scanner</h4>
+                </div>
+                <div class="modal-body" style="position: static">
+                    <div id="interactive" class="viewport"></div>
+                    <div class="error"></div>
+                </div>
+                <div class="modal-footer">
+                    <label class="btn btn-default pull-left">
+                        <i class="fa fa-camera"></i> Use camera app
+                        <input type="file" accept="image/*;capture=camera" capture="camera" class="hidden" />
+                    </label>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+    <!--Confirmation modal-->
+    <div class="modal" id="db_upload">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header db-modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h5 class="modal-title">Book Status</h5>
+                </div>
+                <div class="modal-body">
+                    <span class="modal-icon"><i class="fa fa-check-square-o"></i></span>
+                    <span class="modal-text">The book {{dbStatusBook}} has been added to the DB</span>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+</body>
+</html>

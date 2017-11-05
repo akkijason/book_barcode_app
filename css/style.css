@@ -1,0 +1,32 @@
+﻿.search-container {
+    margin: 10px !important;
+    text-align: center;
+    padding: 10px;
+}
+.search-button {
+    border-radius: 5px !important;
+}
+
+.table-container{
+    text-align:center;
+}
+
+.modal-icon {
+    color: #5cb85c;
+    font-size: 30px;
+   
+}
+
+.modal-text {
+    display: inline-block;
+    margin-left:15px;
+}
+
+div.db-modal-header {
+    color: violet;
+    text-align: center;
+}
+
+div.db-modal-header h5{
+    font-size:20px;
+}
